@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tweetifier/logic/process_input.dart';
+import 'package:tweetifier/process_input.dart';
 
 class Input extends StatelessWidget {
   const Input({Key? key}) : super(key: key);
