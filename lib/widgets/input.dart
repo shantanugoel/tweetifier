@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tweetifier/process_input.dart';
+
+ValueNotifier<String> inputChangeNotifier = ValueNotifier("");
 
 class Input extends StatelessWidget {
   const Input({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class Input extends StatelessWidget {
         ),
       ),
       onChanged: (String value) {
-        processInput(value);
+        inputChangeNotifier.value = value;
       },
     );
   }

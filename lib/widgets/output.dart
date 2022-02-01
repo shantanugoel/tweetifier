@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tweetifier/process_input.dart';
+import 'package:tweetifier/widgets/input.dart';
 
 class Output extends StatelessWidget {
   const Output({Key? key}) : super(key: key);
@@ -9,7 +10,8 @@ class Output extends StatelessWidget {
     return ValueListenableBuilder(
         valueListenable: inputChangeNotifier,
         builder: (context, value, child) {
-          return SelectableText.rich(TextSpan(text: value.toString()));
+          return SelectableText.rich(
+              TextSpan(text: processInput(value.toString())));
         });
   }
 }

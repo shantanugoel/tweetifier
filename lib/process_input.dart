@@ -1,9 +1,6 @@
 import 'package:emojis/emoji.dart';
-import 'package:flutter/material.dart';
 
-ValueNotifier<String> inputChangeNotifier = ValueNotifier("");
-
-void processInput(String input) {
+String processInput(String input) {
   String output = "";
   var tokens = input.split(" ");
   for (var token in tokens) {
@@ -23,10 +20,15 @@ void processInput(String input) {
     }
     output += " ";
   }
-  inputChangeNotifier.value = output;
+  return output;
 }
 
 //use share_plus package for sharing
 // can also try emojis  or dart_emoji package
 //rename project to lingofier/powerup etc?
 // https://pub.dev/packages/flutter_material_pickers
+// Add analytics
+// fix punctuations
+// Help as floating button
+// Option to save for future
+// file to pick up manual translations from
