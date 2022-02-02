@@ -1,4 +1,6 @@
 import 'package:emojis/emoji.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 
 String processInput(String input) {
   String output = "";
@@ -23,7 +25,8 @@ String processInput(String input) {
   return output;
 }
 
-//use share_plus package for sharing
+
+//use share_plus package for sharing, or add copy to clipboard
 // can also try emojis  or dart_emoji package
 //rename project to lingofier/powerup etc?
 // https://pub.dev/packages/flutter_material_pickers
