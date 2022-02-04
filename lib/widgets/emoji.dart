@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 
-class EmojiPos {
-  final int index;
-  final String value;
-  const EmojiPos(this.index, this.value);
+class EmojiPicked {
+  final int position;
+  final String string;
+  const EmojiPicked(this.position, this.string);
 }
 
-ValueNotifier<EmojiPos> e = ValueNotifier(const EmojiPos(0, ""));
+ValueNotifier<EmojiPicked> e = ValueNotifier(const EmojiPicked(0, ""));
 
 class EmojiDisplay extends StatefulWidget {
   final int index;
@@ -37,11 +37,7 @@ class _EmojiDisplayState extends State<EmojiDisplay> {
               selectedItem: displayed,
               onChanged: (value) => setState(() {
                 displayed = value.toString();
-                print(displayed);
-                // letterCount = letterCount + value.toString().length - 1;
-                // l.value = letterCount;
-                // os[i] = displayed;
-                e.value = EmojiPos(widget.index, displayed);
+                e.value = EmojiPicked(widget.index, displayed);
               }),
             ),
             child: Text(displayed),

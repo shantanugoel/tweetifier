@@ -90,10 +90,9 @@ class _OutputState extends State<Output> {
                 label: ValueListenableBuilder(
                   valueListenable: e,
                   builder: (context, value, child) {
-                    os[e.value.index] = e.value.value;
-                    print(os.join());
-                    if (e.value.value.isNotEmpty) {
-                      letterCount += e.value.value.length - 1;
+                    os[e.value.position] = e.value.string;
+                    if (e.value.string.isNotEmpty) {
+                      letterCount += e.value.string.length - 1;
                     }
                     return Text('Output: $letterCount');
                   },
