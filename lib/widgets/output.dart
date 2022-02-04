@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tweetifier/widgets/emoji.dart';
 import 'package:tweetifier/widgets/input.dart';
 import 'package:emojis/emoji.dart';
-import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 
 class Output extends StatefulWidget {
   const Output({Key? key}) : super(key: key);
@@ -12,6 +12,7 @@ class Output extends StatefulWidget {
 
 class _OutputState extends State<Output> {
   int letterCount = 0;
+  List<String> os = [];
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,8 @@ class _OutputState extends State<Output> {
     List<Widget> list = [];
     var tokens = input.split(" ");
     var tokensProcessed = 0;
+    int i = -1;
+    os.clear();
     letterCount = 0;
     for (var token in tokens) {
       var skipChars = ["'", ".", ",", ":", "\""];
@@ -46,40 +49,38 @@ class _OutputState extends State<Output> {
           .skipLastWhile((p0) => skipChars.contains(p0))
           .toString();
       final emoji = Emoji.byKeyword(tokenFiltered);
-      list.add(Text(leadingTaken));
-      letterCount += leadingTaken.length;
+      if (leadingTaken.isNotEmpty) {
+        list.add(Text(leadingTaken));
+        letterCount += leadingTaken.length;
+        ++i;
+        os.add(leadingTaken);
+      }
       if (emoji.isNotEmpty) {
         List<String> alts = [tokenFiltered];
         emoji.toList().forEach((e) => alts.add(e.char));
         String displayed = emoji.first.char;
         letterCount++;
-        list.add(StatefulBuilder(builder: (context, setState) {
-          return MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () => showMaterialScrollPicker(
-                  title: 'Alt',
-                  context: context,
-                  items: alts,
-                  selectedItem: alts[0],
-                  onChanged: (value) => setState(() {
-                    displayed = value.toString();
-                    letterCount = letterCount + value.toString().length - 1;
-                  }),
-                ),
-                child: Text(displayed),
-              ));
-        }));
+        ++i;
+        os.add(displayed);
+        list.add(EmojiDisplay(index: i, alts: alts));
       } else {
         list.add(Text(tokenFiltered));
         letterCount += tokenFiltered.length;
+        ++i;
+        os.add(tokenFiltered);
       }
-      list.add(Text(trailingTaken));
-      letterCount += trailingTaken.length;
+      if (trailingTaken.isNotEmpty) {
+        list.add(Text(trailingTaken));
+        letterCount += trailingTaken.length;
+        ++i;
+        os.add(trailingTaken);
+      }
       tokensProcessed++;
       if (tokensProcessed != tokens.length) {
         list.add(const Text(" "));
         letterCount++;
+        ++i;
+        os.add(" ");
       }
     }
     var output = Container(
@@ -87,7 +88,14 @@ class _OutputState extends State<Output> {
         margin: const EdgeInsets.only(top: 10.0),
         child: InputDecorator(
             decoration: InputDecoration(
-                labelText: "Output: $letterCount",
+                label: ValueListenableBuilder(
+                  valueListenable: e,
+                  builder: (context, value, child) {
+                    os[e.value.index] = e.value.value;
+                    print(os.join());
+                    return Text('Output: $letterCount');
+                  },
+                ),
                 contentPadding: const EdgeInsets.only(top: 10.0)),
             child: Wrap(
               children: list,
