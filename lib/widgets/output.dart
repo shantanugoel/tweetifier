@@ -24,7 +24,6 @@ class _OutputState extends State<Output> {
   }
 
 // TODO:
-// Letter Count
 // Copyable text
 // Removing opportunistic spacing/punctuation
 // Branding and tracking
@@ -93,7 +92,9 @@ class _OutputState extends State<Output> {
                   builder: (context, value, child) {
                     os[e.value.index] = e.value.value;
                     print(os.join());
-                    letterCount += e.value.value.length - 1;
+                    if (e.value.value.isNotEmpty) {
+                      letterCount += e.value.value.length - 1;
+                    }
                     return Text('Output: $letterCount');
                   },
                 ),
