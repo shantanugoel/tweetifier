@@ -16,8 +16,6 @@ class _OutputState extends State<Output> {
     return ValueListenableBuilder(
         valueListenable: inputChangeNotifier,
         builder: (context, value, child) {
-          // return SelectableText.rich(
-          //     TextSpan(text: processInput(value.toString())));
           return processInput2(value.toString(), context);
         });
   }
@@ -30,7 +28,6 @@ class _OutputState extends State<Output> {
       if (emoji.isNotEmpty) {
         List<String> alts = [token];
         emoji.toList().forEach((e) => alts.add(e.char));
-        // _displayedEmojis.add(alts[0]);
         String displayed = emoji.first.char;
         list.add(StatefulBuilder(builder: (context, setState) {
           return GestureDetector(
@@ -45,12 +42,10 @@ class _OutputState extends State<Output> {
             ),
             child: Text(displayed),
           );
-        })); //RichText(text: TextSpan(text: displayed))));
-        // list.add(Text(displayed));
+        }));
       } else {
         list.add(RichText(text: TextSpan(text: token)));
       }
-      // list.add(RichText(text: const TextSpan(text: " ")));
     }
     return Wrap(
       children: list,
