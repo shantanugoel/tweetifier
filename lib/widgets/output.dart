@@ -28,7 +28,7 @@ class _OutputState extends State<Output> {
     for (var token in tokens) {
       final emoji = Emoji.byKeyword(token);
       if (emoji.isNotEmpty) {
-        List<String> alts = [];
+        List<String> alts = [token];
         emoji.toList().forEach((e) => alts.add(e.char));
         // _displayedEmojis.add(alts[0]);
         String displayed = emoji.first.char;
