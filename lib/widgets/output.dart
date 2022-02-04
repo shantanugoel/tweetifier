@@ -93,6 +93,7 @@ class _OutputState extends State<Output> {
                   builder: (context, value, child) {
                     os[e.value.index] = e.value.value;
                     print(os.join());
+                    letterCount += e.value.value.length - 1;
                     return Text('Output: $letterCount');
                   },
                 ),
