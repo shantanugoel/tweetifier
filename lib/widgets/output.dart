@@ -22,7 +22,7 @@ class _OutputState extends State<Output> {
         });
   }
 
-  Row processInput2(String input, BuildContext context) {
+  Widget processInput2(String input, BuildContext context) {
     List<Widget> list = [];
     var tokens = input.split(" ");
     for (var token in tokens) {
@@ -52,7 +52,7 @@ class _OutputState extends State<Output> {
       }
       // list.add(RichText(text: const TextSpan(text: " ")));
     }
-    return Row(
+    return Wrap(
       children: list,
     );
   }

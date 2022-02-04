@@ -10,7 +10,7 @@ class Input extends StatelessWidget {
     return TextField(
       keyboardType: TextInputType.multiline,
       minLines: 3,
-      maxLines: 5,
+      maxLines: 20,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),
         enabledBorder: OutlineInputBorder(
