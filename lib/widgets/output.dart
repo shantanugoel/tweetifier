@@ -12,15 +12,17 @@ class Output extends StatefulWidget {
 
 class _OutputState extends State<Output> {
   int letterCount = 0;
-  List<String> os = [];
+  List<String> outputString = [];
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: inputChangeNotifier,
-        builder: (context, value, child) {
-          return processInput2(value.toString(), context);
-        });
+    return Column(children: [
+      ValueListenableBuilder(
+          valueListenable: inputChangeNotifier,
+          builder: (context, value, child) {
+            return processInput2(value.toString(), context);
+          })
+    ]);
   }
 
 // TODO:
@@ -33,7 +35,7 @@ class _OutputState extends State<Output> {
     var tokens = input.split(" ");
     var tokensProcessed = 0;
     int i = -1;
-    os.clear();
+    outputString.clear();
     letterCount = 0;
     for (var token in tokens) {
       var skipChars = ["'", ".", ",", ":", "\""];
@@ -52,7 +54,7 @@ class _OutputState extends State<Output> {
         list.add(Text(leadingTaken));
         letterCount += leadingTaken.length;
         ++i;
-        os.add(leadingTaken);
+        outputString.add(leadingTaken);
       }
       if (emoji.isNotEmpty) {
         List<String> alts = [tokenFiltered];
@@ -60,26 +62,26 @@ class _OutputState extends State<Output> {
         String displayed = emoji.first.char;
         letterCount++;
         ++i;
-        os.add(displayed);
+        outputString.add(displayed);
         list.add(EmojiDisplay(index: i, alts: alts));
       } else {
         list.add(Text(tokenFiltered));
         letterCount += tokenFiltered.length;
         ++i;
-        os.add(tokenFiltered);
+        outputString.add(tokenFiltered);
       }
       if (trailingTaken.isNotEmpty) {
         list.add(Text(trailingTaken));
         letterCount += trailingTaken.length;
         ++i;
-        os.add(trailingTaken);
+        outputString.add(trailingTaken);
       }
       tokensProcessed++;
       if (tokensProcessed != tokens.length) {
         list.add(const Text(" "));
         letterCount++;
         ++i;
-        os.add(" ");
+        outputString.add(" ");
       }
     }
     var output = Container(
@@ -90,7 +92,7 @@ class _OutputState extends State<Output> {
                 label: ValueListenableBuilder(
                   valueListenable: e,
                   builder: (context, value, child) {
-                    os[e.value.position] = e.value.string;
+                    outputString[e.value.position] = e.value.string;
                     if (e.value.string.isNotEmpty) {
                       letterCount += e.value.string.length - 1;
                     }
