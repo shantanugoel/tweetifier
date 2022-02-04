@@ -21,7 +21,7 @@ class _OutputState extends State<Output> {
       ValueListenableBuilder(
           valueListenable: inputChangeNotifier,
           builder: (context, value, child) {
-            return processInput2(value.toString(), context);
+            return processInput(value.toString(), context);
           }),
       ElevatedButton(
           onPressed: () => _copyToClipboard(),
@@ -33,7 +33,7 @@ class _OutputState extends State<Output> {
 // Removing opportunistic spacing/punctuation
 // Branding and tracking
 
-  Widget processInput2(String input, BuildContext context) {
+  Widget processInput(String input, BuildContext context) {
     List<Widget> list = [];
     var tokens = input.split(" ");
     var tokensProcessed = 0;
