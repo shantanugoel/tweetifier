@@ -55,7 +55,7 @@ class _OutputState extends State<Output> {
       final emoji = Emoji.byKeyword(tokenFiltered);
 
       if (leadingTaken.isNotEmpty) {
-        list.add(Text(leadingTaken));
+        list.add(outputText(leadingTaken));
         letterCount += leadingTaken.length;
         ++i;
         outputString.add(leadingTaken);
@@ -71,21 +71,21 @@ class _OutputState extends State<Output> {
         outputString.add(displayed);
         list.add(EmojiDisplay(index: i, alts: alts));
       } else {
-        list.add(Text(tokenFiltered));
+        list.add(outputText(tokenFiltered));
         letterCount += tokenFiltered.characters.length;
         ++i;
         outputString.add(tokenFiltered);
       }
 
       if (trailingTaken.isNotEmpty) {
-        list.add(Text(trailingTaken));
+        list.add(outputText(trailingTaken));
         letterCount += trailingTaken.length;
         ++i;
         outputString.add(trailingTaken);
       }
       tokensProcessed++;
       if (tokensProcessed != tokens.length) {
-        list.add(const Text(" "));
+        list.add(outputText(" "));
         letterCount++;
         ++i;
         outputString.add(" ");
@@ -122,6 +122,13 @@ class _OutputState extends State<Output> {
         content: Text("Copied to clipboard: ${outputString.join()}"),
         behavior: SnackBarBehavior.floating,
       ),
+    );
+  }
+
+  Text outputText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 20),
     );
   }
 }
