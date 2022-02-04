@@ -31,7 +31,7 @@ class _InputState extends State<Input> {
       onChanged: (String value) {
         inputChangeNotifier.value = value;
         setState(() {
-          letterCount = value.length;
+          letterCount = value.characters.length;
         });
       },
     );

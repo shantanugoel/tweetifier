@@ -72,7 +72,7 @@ class _OutputState extends State<Output> {
         list.add(EmojiDisplay(index: i, alts: alts));
       } else {
         list.add(Text(tokenFiltered));
-        letterCount += tokenFiltered.length;
+        letterCount += tokenFiltered.characters.length;
         ++i;
         outputString.add(tokenFiltered);
       }
@@ -101,7 +101,7 @@ class _OutputState extends State<Output> {
                 builder: (context, value, child) {
                   if (e.value.string.isNotEmpty) {
                     outputString[e.value.position] = e.value.string;
-                    letterCount += e.value.string.length - 1;
+                    letterCount += e.value.string.characters.length - 1;
                   }
                   return Text('Output: $letterCount');
                 },
