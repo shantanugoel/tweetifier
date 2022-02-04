@@ -31,7 +31,7 @@ class _EmojiDisplayState extends State<EmojiDisplay> {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             onTap: () => showMaterialScrollPicker(
-              title: 'Alt',
+              title: 'Alternate Emojis',
               context: context,
               items: widget.alts,
               selectedItem: displayed,
@@ -40,7 +40,10 @@ class _EmojiDisplayState extends State<EmojiDisplay> {
                 e.value = EmojiPicked(widget.index, displayed);
               }),
             ),
-            child: Text(displayed),
+            child: Text(
+              displayed,
+              style: const TextStyle(fontSize: 20),
+            ),
           ));
     });
   }
