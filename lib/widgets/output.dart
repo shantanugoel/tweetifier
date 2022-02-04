@@ -11,9 +11,6 @@ class Output extends StatefulWidget {
 }
 
 class _OutputState extends State<Output> {
-  final List<String> _displayedEmojis = [];
-  String displayed = "";
-
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -27,7 +24,6 @@ class _OutputState extends State<Output> {
 
   Row processInput2(String input, BuildContext context) {
     List<Widget> list = [];
-    int index = 0;
     var tokens = input.split(" ");
     for (var token in tokens) {
       final emoji = Emoji.byKeyword(token);
@@ -35,7 +31,7 @@ class _OutputState extends State<Output> {
         List<String> alts = [];
         emoji.toList().forEach((e) => alts.add(e.char));
         // _displayedEmojis.add(alts[0]);
-        displayed = emoji.first.char;
+        String displayed = emoji.first.char;
         list.add(StatefulBuilder(builder: (context, setState) {
           return GestureDetector(
             onTap: () => showMaterialScrollPicker(
@@ -54,7 +50,6 @@ class _OutputState extends State<Output> {
       } else {
         list.add(RichText(text: TextSpan(text: token)));
       }
-      index++;
       // list.add(RichText(text: const TextSpan(text: " ")));
     }
     return Row(
