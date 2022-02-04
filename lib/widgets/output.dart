@@ -53,13 +53,16 @@ class _OutputState extends State<Output> {
           .skipLastWhile((p0) => skipChars.contains(p0))
           .toString();
       final emoji = Emoji.byKeyword(tokenFiltered);
+
       if (leadingTaken.isNotEmpty) {
         list.add(Text(leadingTaken));
         letterCount += leadingTaken.length;
         ++i;
         outputString.add(leadingTaken);
       }
-      if (emoji.isNotEmpty) {
+
+      // Don't emojify for single letter words
+      if (emoji.isNotEmpty && tokenFiltered.length != 1) {
         List<String> alts = [tokenFiltered];
         emoji.toList().forEach((e) => alts.add(e.char));
         String displayed = emoji.first.char;
@@ -73,6 +76,7 @@ class _OutputState extends State<Output> {
         ++i;
         outputString.add(tokenFiltered);
       }
+
       if (trailingTaken.isNotEmpty) {
         list.add(Text(trailingTaken));
         letterCount += trailingTaken.length;
@@ -88,21 +92,22 @@ class _OutputState extends State<Output> {
       }
     }
     var output = Container(
-        padding: const EdgeInsets.all(10.0),
-        margin: const EdgeInsets.only(top: 10.0),
+        padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
+        margin: const EdgeInsets.only(top: 15.0, bottom: 10.0),
         child: InputDecorator(
             decoration: InputDecoration(
-                label: ValueListenableBuilder(
-                  valueListenable: e,
-                  builder: (context, value, child) {
-                    if (e.value.string.isNotEmpty) {
-                      outputString[e.value.position] = e.value.string;
-                      letterCount += e.value.string.length - 1;
-                    }
-                    return Text('Output: $letterCount');
-                  },
-                ),
-                contentPadding: const EdgeInsets.only(top: 10.0)),
+              label: ValueListenableBuilder(
+                valueListenable: e,
+                builder: (context, value, child) {
+                  if (e.value.string.isNotEmpty) {
+                    outputString[e.value.position] = e.value.string;
+                    letterCount += e.value.string.length - 1;
+                  }
+                  return Text('Output: $letterCount');
+                },
+              ),
+              border: const OutlineInputBorder(),
+            ),
             child: Wrap(
               children: list,
             )));
