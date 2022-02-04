@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tweetifier/widgets/emoji.dart';
 import 'package:tweetifier/widgets/input.dart';
 import 'package:emojis/emoji.dart';
@@ -21,7 +22,11 @@ class _OutputState extends State<Output> {
           valueListenable: inputChangeNotifier,
           builder: (context, value, child) {
             return processInput2(value.toString(), context);
-          })
+          }),
+      TextButton(
+          onPressed: () =>
+              Clipboard.setData(ClipboardData(text: outputString.join())),
+          child: const Text("Copy to Clipboard")),
     ]);
   }
 
@@ -92,8 +97,8 @@ class _OutputState extends State<Output> {
                 label: ValueListenableBuilder(
                   valueListenable: e,
                   builder: (context, value, child) {
-                    outputString[e.value.position] = e.value.string;
                     if (e.value.string.isNotEmpty) {
+                      outputString[e.value.position] = e.value.string;
                       letterCount += e.value.string.length - 1;
                     }
                     return Text('Output: $letterCount');
