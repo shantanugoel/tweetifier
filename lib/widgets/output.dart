@@ -24,6 +24,7 @@ class _OutputState extends State<Output> {
 // Letter Count
 // Copyable text
 // Removing opportunistic spacing/punctuation
+// Branding and tracking
 
   Widget processInput2(String input, BuildContext context) {
     List<Widget> list = [];
@@ -70,10 +71,17 @@ class _OutputState extends State<Output> {
         list.add(const Text(" "));
       }
     }
-    return Container(
+    var output = Container(
         padding: const EdgeInsets.all(10.0),
-        child: Wrap(
-          children: list,
-        ));
+        margin: const EdgeInsets.only(top: 10.0),
+        child: InputDecorator(
+            decoration: const InputDecoration(
+                labelText: "Output",
+                contentPadding: EdgeInsets.only(top: 10.0)),
+            child: Wrap(
+              children: list,
+            )));
+
+    return output;
   }
 }
