@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:tweetifier/widgets/input.dart';
 import 'package:tweetifier/widgets/output.dart';
@@ -13,7 +15,7 @@ class Home extends StatelessWidget {
       ),
       body: Center(
         child: FractionallySizedBox(
-          widthFactor: 0.7,
+          widthFactor: _calculateWidthFactor(context),
           child: ListView(
             padding: const EdgeInsets.all(20.0),
             children: const [
@@ -24,5 +26,12 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double _calculateWidthFactor(BuildContext context) {
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      return 0.9;
+    }
+    return 0.7;
   }
 }
