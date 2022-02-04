@@ -23,15 +23,13 @@ class _OutputState extends State<Output> {
           builder: (context, value, child) {
             return processInput2(value.toString(), context);
           }),
-      TextButton(
-          onPressed: () =>
-              Clipboard.setData(ClipboardData(text: outputString.join())),
+      ElevatedButton(
+          onPressed: () => _copyToClipboard(),
           child: const Text("Copy to Clipboard")),
     ]);
   }
 
 // TODO:
-// Copyable text
 // Removing opportunistic spacing/punctuation
 // Branding and tracking
 
@@ -110,5 +108,15 @@ class _OutputState extends State<Output> {
             )));
 
     return output;
+  }
+
+  Future<void> _copyToClipboard() async {
+    await Clipboard.setData(ClipboardData(text: outputString.join()));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Copied to clipboard: ${outputString.join()}"),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 }
