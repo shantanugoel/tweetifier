@@ -20,13 +20,31 @@ class _OutputState extends State<Output> {
         });
   }
 
+// TODO:
+// Letter Count
+// Copyable text
+// Removing opportunistic spacing/punctuation
+
   Widget processInput2(String input, BuildContext context) {
     List<Widget> list = [];
     var tokens = input.split(" ");
+    var tokensProcessed = 0;
     for (var token in tokens) {
-      final emoji = Emoji.byKeyword(token);
+      var skipChars = ["'", ".", ",", ":", "\""];
+      var leadingTaken =
+          token.characters.takeWhile((p0) => skipChars.contains(p0)).toString();
+      var leadingFiltered =
+          token.characters.skipWhile((p0) => skipChars.contains(p0));
+      var trailingTaken = leadingFiltered
+          .takeLastWhile((p0) => skipChars.contains(p0))
+          .toString();
+      var tokenFiltered = leadingFiltered
+          .skipLastWhile((p0) => skipChars.contains(p0))
+          .toString();
+      final emoji = Emoji.byKeyword(tokenFiltered);
+      list.add(Text(leadingTaken));
       if (emoji.isNotEmpty) {
-        List<String> alts = [token];
+        List<String> alts = [tokenFiltered];
         emoji.toList().forEach((e) => alts.add(e.char));
         String displayed = emoji.first.char;
         list.add(StatefulBuilder(builder: (context, setState) {
@@ -44,11 +62,18 @@ class _OutputState extends State<Output> {
           );
         }));
       } else {
-        list.add(RichText(text: TextSpan(text: token)));
+        list.add(Text(tokenFiltered));
+      }
+      list.add(Text(trailingTaken));
+      tokensProcessed++;
+      if (tokensProcessed != tokens.length) {
+        list.add(const Text(" "));
       }
     }
-    return Wrap(
-      children: list,
-    );
+    return Container(
+        padding: const EdgeInsets.all(10.0),
+        child: Wrap(
+          children: list,
+        ));
   }
 }
