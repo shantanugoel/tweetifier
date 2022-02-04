@@ -91,7 +91,8 @@ class _OutputState extends State<Output> {
         outputString.add(" ");
       }
     }
-    var output = Container(
+
+    return Container(
         padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
         margin: const EdgeInsets.only(top: 15.0, bottom: 10.0),
         child: InputDecorator(
@@ -111,8 +112,6 @@ class _OutputState extends State<Output> {
             child: Wrap(
               children: list,
             )));
-
-    return output;
   }
 
   Future<void> _copyToClipboard() async {
