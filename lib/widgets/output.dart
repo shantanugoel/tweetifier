@@ -54,18 +54,21 @@ class _OutputState extends State<Output> {
         String displayed = emoji.first.char;
         letterCount++;
         list.add(StatefulBuilder(builder: (context, setState) {
-          return GestureDetector(
-            onTap: () => showMaterialScrollPicker(
-              title: 'Alt',
-              context: context,
-              items: alts,
-              selectedItem: alts[0],
-              onChanged: (value) => setState(() {
-                displayed = value.toString();
-              }),
-            ),
-            child: Text(displayed),
-          );
+          return MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () => showMaterialScrollPicker(
+                  title: 'Alt',
+                  context: context,
+                  items: alts,
+                  selectedItem: alts[0],
+                  onChanged: (value) => setState(() {
+                    displayed = value.toString();
+                    letterCount = letterCount + value.toString().length - 1;
+                  }),
+                ),
+                child: Text(displayed),
+              ));
         }));
       } else {
         list.add(Text(tokenFiltered));
