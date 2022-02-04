@@ -11,6 +11,8 @@ class Output extends StatefulWidget {
 }
 
 class _OutputState extends State<Output> {
+  int letterCount = 0;
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -30,6 +32,7 @@ class _OutputState extends State<Output> {
     List<Widget> list = [];
     var tokens = input.split(" ");
     var tokensProcessed = 0;
+    letterCount = 0;
     for (var token in tokens) {
       var skipChars = ["'", ".", ",", ":", "\""];
       var leadingTaken =
@@ -44,10 +47,12 @@ class _OutputState extends State<Output> {
           .toString();
       final emoji = Emoji.byKeyword(tokenFiltered);
       list.add(Text(leadingTaken));
+      letterCount += leadingTaken.length;
       if (emoji.isNotEmpty) {
         List<String> alts = [tokenFiltered];
         emoji.toList().forEach((e) => alts.add(e.char));
         String displayed = emoji.first.char;
+        letterCount++;
         list.add(StatefulBuilder(builder: (context, setState) {
           return GestureDetector(
             onTap: () => showMaterialScrollPicker(
@@ -64,20 +69,23 @@ class _OutputState extends State<Output> {
         }));
       } else {
         list.add(Text(tokenFiltered));
+        letterCount += tokenFiltered.length;
       }
       list.add(Text(trailingTaken));
+      letterCount += trailingTaken.length;
       tokensProcessed++;
       if (tokensProcessed != tokens.length) {
         list.add(const Text(" "));
+        letterCount++;
       }
     }
     var output = Container(
         padding: const EdgeInsets.all(10.0),
         margin: const EdgeInsets.only(top: 10.0),
         child: InputDecorator(
-            decoration: const InputDecoration(
-                labelText: "Output",
-                contentPadding: EdgeInsets.only(top: 10.0)),
+            decoration: InputDecoration(
+                labelText: "Output: $letterCount",
+                contentPadding: const EdgeInsets.only(top: 10.0)),
             child: Wrap(
               children: list,
             )));
