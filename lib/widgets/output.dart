@@ -29,10 +29,6 @@ class _OutputState extends State<Output> {
     ]);
   }
 
-// TODO:
-// Removing opportunistic spacing/punctuation
-// Branding and tracking
-
   Widget processInput(String input, BuildContext context) {
     List<Widget> list = [];
     var tokens = input.split(" ");
