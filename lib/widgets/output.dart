@@ -156,7 +156,6 @@ class _OutputState extends State<Output> {
   }
 
   void tweetIt() async {
-    print("a");
     final tweet = TweetIntent(
       text: outputString.join(),
     );
