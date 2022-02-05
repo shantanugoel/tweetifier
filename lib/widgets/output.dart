@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:stemmer/SnowballStemmer.dart';
 import 'package:tweetifier/widgets/emoji.dart';
 import 'package:tweetifier/widgets/input.dart';
 import 'package:emojis/emoji.dart';
@@ -45,6 +46,8 @@ class _OutputState extends State<Output> {
     var tokensProcessed = 0;
     int i = -1;
     outputString.clear();
+    SnowballStemmer stemmer = SnowballStemmer();
+
     letterCount = 0;
     for (var token in tokens) {
       final skipChars = ["'", ".", ",", ":", "\"", "!"];
@@ -58,6 +61,7 @@ class _OutputState extends State<Output> {
       final tokenFiltered = leadingFiltered
           .skipLastWhile((p0) => skipChars.contains(p0))
           .toString();
+      final tokenFinal = stemmer.stem(tokenFiltered);
 
       if (leadingTaken.isNotEmpty) {
         list.add(outputText(leadingTaken));
@@ -67,9 +71,9 @@ class _OutputState extends State<Output> {
       }
 
       // Build a corpus of possible emoji translations
-      final emojiByName = Emoji.byName(tokenFiltered);
-      final emojiByShortName = Emoji.byShortName(tokenFiltered);
-      final emojiByKeyword = Emoji.byKeyword(tokenFiltered);
+      final emojiByName = Emoji.byName(tokenFinal);
+      final emojiByShortName = Emoji.byShortName(tokenFinal);
+      final emojiByKeyword = Emoji.byKeyword(tokenFinal);
       List<Emoji> emoji = [];
       if (emojiByName != null) {
         emoji.add(emojiByName);
