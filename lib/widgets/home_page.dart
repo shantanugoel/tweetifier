@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tweetifier'),
+        title: const Text('Tweetify!'),
         actions: [
           IconButton(
             onPressed: () => showHelp(context),
