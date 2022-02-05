@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tweetifier/widgets/input.dart';
 import 'package:tweetifier/widgets/output.dart';
+import 'package:twitter_intent/twitter_intent.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatelessWidget {
@@ -36,6 +37,11 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => callToAction(),
+          backgroundColor: Colors.pink,
+          icon: const Icon(Icons.share),
+          label: const Text("Spread the word!")),
     );
   }
 
@@ -92,5 +98,12 @@ class Home extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void callToAction() async {
+    final cta = TweetIntent(
+        text:
+            '💪 🆙 your 🐦 ⚽ with Tweetify! https://tweetify.shantanugoel.com/');
+    await launch(cta.toString());
   }
 }
