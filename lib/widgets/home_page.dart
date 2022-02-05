@@ -40,6 +40,8 @@ class Home extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () => callToAction(),
           backgroundColor: Colors.pink,
+          isExtended:
+              MediaQuery.of(context).viewInsets.bottom != 0 ? false : true,
           icon: const Icon(Icons.share),
           label: const Text("Spread the word!")),
     );
