@@ -85,7 +85,7 @@ class Home extends StatelessWidget {
  • Emojified output will appear in the output box as you type
  • After writing all content, you can also click on any emoji and choose an alternate version of that emoji, or go back to text form
  • Click on "Copy" to copy it to clipboardand paste it on twitter or anywhere else
- * Or Click on "Tweet" to tweet it directly'''),
+ • Or Click on "Tweet" to tweet it directly'''),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(context), child: const Text('Ok')),
