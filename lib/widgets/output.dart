@@ -47,15 +47,15 @@ class _OutputState extends State<Output> {
     outputString.clear();
     letterCount = 0;
     for (var token in tokens) {
-      var skipChars = ["'", ".", ",", ":", "\""];
-      var leadingTaken =
+      final skipChars = ["'", ".", ",", ":", "\"", "!"];
+      final leadingTaken =
           token.characters.takeWhile((p0) => skipChars.contains(p0)).toString();
-      var leadingFiltered =
+      final leadingFiltered =
           token.characters.skipWhile((p0) => skipChars.contains(p0));
-      var trailingTaken = leadingFiltered
+      final trailingTaken = leadingFiltered
           .takeLastWhile((p0) => skipChars.contains(p0))
           .toString();
-      var tokenFiltered = leadingFiltered
+      final tokenFiltered = leadingFiltered
           .skipLastWhile((p0) => skipChars.contains(p0))
           .toString();
 
