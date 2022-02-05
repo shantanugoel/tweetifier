@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:tweetifier/widgets/emoji.dart';
 import 'package:tweetifier/widgets/input.dart';
 import 'package:emojis/emoji.dart';
+import 'package:twitter_intent/twitter_intent.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Output extends StatefulWidget {
   const Output({Key? key}) : super(key: key);
@@ -23,9 +25,17 @@ class _OutputState extends State<Output> {
           builder: (context, value, child) {
             return processInput(value.toString(), context);
           }),
-      ElevatedButton(
-          onPressed: () => _copyToClipboard(),
-          child: const Text("Copy to Clipboard")),
+      Wrap(
+        alignment: WrapAlignment.center,
+        children: [
+          ElevatedButton(
+              onPressed: () => _copyToClipboard(),
+              child: const Text("📔 Copy")),
+          const Text(' '),
+          ElevatedButton(
+              onPressed: () => tweetIt(), child: const Text("🐦 Tweet")),
+        ],
+      ),
     ]);
   }
 
@@ -127,5 +137,13 @@ class _OutputState extends State<Output> {
       text,
       style: const TextStyle(fontSize: 20),
     );
+  }
+
+  void tweetIt() async {
+    print("a");
+    final tweet = TweetIntent(
+      text: outputString.join(),
+    );
+    await launch('$tweet');
   }
 }

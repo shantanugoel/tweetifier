@@ -37,6 +37,7 @@ dependencies:
   emojis: ^0.9.9
   flutter_material_pickers: ^3.1.2
   url_launcher: ^6.0.18
+  twitter_intent: ^1.0.0
 
 dev_dependencies:
   flutter_test:
