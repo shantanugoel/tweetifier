@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:tweetifier/widgets/input.dart';
 import 'package:tweetifier/widgets/output.dart';
