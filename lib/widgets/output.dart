@@ -84,7 +84,9 @@ class _OutputState extends State<Output> {
       // Don't emojify for single letter words
       if (emoji.isNotEmpty && tokenFiltered.length != 1) {
         List<String> alts = [tokenFiltered];
-        emoji.toList().forEach((e) => alts.add(e.char));
+        for (var e in emoji) {
+          alts.add(e.char);
+        }
         String displayed = emoji.first.char;
         letterCount++;
         ++i;
