@@ -115,13 +115,15 @@ class _OutputState extends State<Output> {
   }
 
   Future<void> _copyToClipboard() async {
-    await Clipboard.setData(ClipboardData(text: outputString.join()));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Copied to clipboard: ${outputString.join()}"),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    var output = outputString.join();
+    Clipboard.setData(ClipboardData(text: output))
+        .then((_) => ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Copied to clipboard: ${outputString.join()}"),
+                behavior: SnackBarBehavior.floating,
+                duration: const Duration(milliseconds: 300),
+              ),
+            ));
   }
 
   Text outputText(String text) {
