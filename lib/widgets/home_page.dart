@@ -60,13 +60,20 @@ class Home extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          text: 'Built with ❤️ by ',
           children: [
+            const TextSpan(text: 'Built with ❤️ by '),
             TextSpan(
                 text: '@shantanugoel',
                 style: const TextStyle(color: Colors.blue),
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => launch('https://twitter.com/shantanugoel'))
+                  ..onTap = () => launch('https://twitter.com/shantanugoel')),
+            const TextSpan(text: ' | '),
+            TextSpan(
+                text: 'Source Code',
+                style: const TextStyle(color: Colors.blue),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () =>
+                      launch('https://github.com/shantanugoel/tweetifier')),
           ],
         ),
       ),
