@@ -58,13 +58,27 @@ class _OutputState extends State<Output> {
       var tokenFiltered = leadingFiltered
           .skipLastWhile((p0) => skipChars.contains(p0))
           .toString();
-      final emoji = Emoji.byKeyword(tokenFiltered);
 
       if (leadingTaken.isNotEmpty) {
         list.add(outputText(leadingTaken));
         letterCount += leadingTaken.length;
         ++i;
         outputString.add(leadingTaken);
+      }
+
+      // Build a corpus of possible emoji translations
+      final emojiByName = Emoji.byName(tokenFiltered);
+      final emojiByShortName = Emoji.byShortName(tokenFiltered);
+      final emojiByKeyword = Emoji.byKeyword(tokenFiltered);
+      List<Emoji> emoji = [];
+      if (emojiByName != null) {
+        emoji.add(emojiByName);
+      }
+      if (emojiByShortName != null) {
+        emoji.add(emojiByShortName);
+      }
+      if (emojiByKeyword.isNotEmpty) {
+        emoji.addAll(emojiByKeyword);
       }
 
       // Don't emojify for single letter words
