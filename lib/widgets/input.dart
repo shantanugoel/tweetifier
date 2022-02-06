@@ -20,6 +20,7 @@ class _InputState extends State<Input> {
       controller: _controller,
       minLines: 3,
       maxLines: 20,
+      autofocus: true,
       decoration: InputDecoration(
         label: Text("Input: $letterCount"),
         floatingLabelBehavior: FloatingLabelBehavior.always,
